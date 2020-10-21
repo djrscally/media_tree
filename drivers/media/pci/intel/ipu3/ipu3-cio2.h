@@ -436,4 +436,13 @@ static inline struct cio2_queue *vb2q_to_cio2_queue(struct vb2_queue *vq)
 	return container_of(vq, struct cio2_queue, vbq);
 }
 
+#if IS_ENABLED(CONFIG_CIO2_BRIDGE)
+	int cio2_bridge_init(struct pci_dev *cio2);
+	void cio2_bridge_clean(struct pci_dev *cio2);
+#else
+
+	int cio2_bridge_init(struct pci_dev *cio2) { return 0; }
+	void cio2_bridge_clean(struct pci_dev *cio2) { }
+#endif
+
 #endif
